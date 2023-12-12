@@ -8,6 +8,7 @@ import Register from './views/userPage/registerPage/Register';
 import Login from './views/userPage/loginPage/Login';
 import Quiz from './views/userPage/quizPage/Quiz';
 import Result from './views/userPage/resultPage/Result';
+import Protected from './protectedRoutes/Protected';
 
 const App = () => {
   return (
@@ -17,11 +18,25 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/result" element={<Result />} />
+          <Route
+            path="/quiz"
+            element={
+              <Protected>
+                <Quiz />
+              </Protected>
+            }
+          />
+          <Route
+            path="/result"
+            element={
+              <Protected>
+                <Result />
+              </Protected>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+
         <ToastContainer
           position="top-right"
           limit={1}

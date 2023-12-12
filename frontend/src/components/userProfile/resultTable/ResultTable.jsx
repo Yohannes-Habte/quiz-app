@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './ResultTable.scss';
+import axios from 'axios';
 
 const ResultTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    'getServerData'(
-      `${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`,
-      (res) => {
-        setData(res);
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/results`
+        );
+        setData(data.results);
+      } catch (error) {
+        console.log(error)
       }
-    );
-  });
+    };
+    fetchData();
+  }, []);
+
+  console.log("result data", data)
+
   return (
     <div>
       <table>
@@ -25,12 +34,12 @@ const ResultTable = () => {
         </thead>
         <tbody>
           {!data ?? <div>No Data Found </div>}
-          {data.map((v, i) => (
-            <tr className="table-body" key={i}>
-              <td>{v?.username || ''}</td>
-              <td>{v?.attempts || 0}</td>
-              <td>{v?.points || 0}</td>
-              <td>{v?.achived || ''}</td>
+          {data?.map((user, index) => (
+            <tr className="table-body" key={index}>
+              <td>{user?.username || ''}</td>
+              <td>{user?.attempts || 0}</td>
+              <td>{user?.points || 0}</td>
+              <td>{user?.achived || ''}</td>
             </tr>
           ))}
         </tbody>

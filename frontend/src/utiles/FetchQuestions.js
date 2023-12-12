@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getServerData } from '../helper/helper';
-
-/** redux actions */
-import * as Action from '../redux/question_reducer';
-
+import * as Action from '../redux/reducers/questionReducer';
+import axios from 'axios';
 /** fetch question hook to fetch api data and set value to store */
 export const useFetchQestion = () => {
+  // Global variables
   const dispatch = useDispatch();
   const [getData, setGetData] = useState({
     isLoading: false,
@@ -15,22 +13,22 @@ export const useFetchQestion = () => {
   });
 
   useEffect(() => {
-    setGetData((prev) => ({ ...prev, isLoading: true }));
-
-    /** async function fetch backend data */
-    (async () => {
+    const fetchQuestions = async () => {
+      setGetData((prev) => ({ ...prev, isLoading: true }));
       try {
-        const [{ questions, answers }] = await getServerData(
-          `${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`,
-          (data) => data
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/questions`
         );
+
+        const questions = data[0].questions;
+        const answers = data[0].answers;
 
         if (questions.length > 0) {
           setGetData((prev) => ({ ...prev, isLoading: false }));
           setGetData((prev) => ({ ...prev, apiData: questions }));
 
           /** dispatch an action */
-          dispatch(Action.startExamAction({ question: questions, answers }));
+          dispatch(Action.startExamAction({ questions, answers }));
         } else {
           throw new Error('No Question Avalibale');
         }
@@ -38,13 +36,15 @@ export const useFetchQestion = () => {
         setGetData((prev) => ({ ...prev, isLoading: false }));
         setGetData((prev) => ({ ...prev, serverError: error }));
       }
-    })();
+    };
+
+    fetchQuestions();
   }, [dispatch]);
 
   return [getData, setGetData];
 };
 
-/** MoveAction Dispatch function */
+/** Move to the next question using Dispatch function */
 export const MoveNextQuestion = () => async (dispatch) => {
   try {
     dispatch(Action.moveNextAction()); /** increase trace by 1 */
@@ -53,10 +53,10 @@ export const MoveNextQuestion = () => async (dispatch) => {
   }
 };
 
-/** PrevAction Dispatch function */
+/** Move to previous question using Dispatch function */
 export const MovePrevQuestion = () => async (dispatch) => {
   try {
-    dispatch(Action.movePrevAction()); /** decrease trace by 1 */
+    dispatch(Action.movePrevAction());
   } catch (error) {
     console.log(error);
   }

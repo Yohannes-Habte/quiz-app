@@ -1,5 +1,5 @@
-import { postServerData } from '../helper/helper';
-import * as Action from '../redux/result_reducer';
+import axios from 'axios';
+import * as Action from '../redux/reducers/resultReducer';
 
 export const PushAnswer = (result) => async (dispatch) => {
   try {
@@ -16,21 +16,19 @@ export const updateResult = (index) => async (dispatch) => {
   }
 };
 
-/** insert user data */
-export const usePublishResult = (resultData) => {
+// /** insert user data */
+export const usePublishResult = async (resultData) => {
   const { result, username } = resultData;
-  (async () => {
-    try {
-      if (result !== null && !username) {
-        throw new Error("Couldn't get Result");
-      }
-      await postServerData(
-        `${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`,
-        resultData,
-        (data) => data
-      );
-    } catch (error) {
-      console.log(error);
+
+  try {
+    if (result !== null && !username) {
+      throw new Error("Couldn't get Result");
     }
-  })();
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/results/new-result`,
+      resultData
+    );
+  } catch (error) {
+    console.log(error);
+  }
 };

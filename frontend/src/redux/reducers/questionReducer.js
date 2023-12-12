@@ -1,39 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-/** create reducer */
+const initialState = {
+  quizQuestions: [],
+  answers: [],
+  questionNumber: 0,
+};
+
 export const questionReducer = createSlice({
   name: 'questions',
-  initialState: {
-    queue: [],
-    answers: [],
-    trace: 0,
-  },
+  initialState,
+
   reducers: {
     startExamAction: (state, action) => {
-      let { question, answers } = action.payload;
+      const { questions, answers } = action.payload;
       return {
         ...state,
-        queue: question,
-        answers,
+        quizQuestions: questions,
+        answers: answers,
       };
     },
+
     moveNextAction: (state) => {
       return {
         ...state,
-        trace: state.trace + 1,
+        questionNumber: state.questionNumber + 1,
       };
     },
+
     movePrevAction: (state) => {
       return {
         ...state,
-        trace: state.trace - 1,
+        questionNumber: state.questionNumber - 1,
       };
     },
+
     resetAllAction: () => {
       return {
-        queue: [],
+        quizQuestions: [],
         answers: [],
-        trace: 0,
+        questionNumber: 0,
       };
     },
   },
