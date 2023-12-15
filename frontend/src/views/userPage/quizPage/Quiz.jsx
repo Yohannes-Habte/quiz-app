@@ -52,23 +52,21 @@ const Quiz = () => {
   }
 
   return (
-    <main>
-      <section>
-        <h1 className="title">Quiz Application</h1>
+    <main className="quiz-page">
+      <section className="quiz-container">
+        <h1 className="quiz-title">Quiz Application</h1>
 
         {/* Questions */}
         <Questions onChecked={onChecked} />
 
         <div className="buttons-wrapper">
-          {questionNumber > 0 ? (
+          {questionNumber && (
             <button
               className="quiz-btn previous-btn"
               onClick={PreviousQuestion}
             >
               Previous
             </button>
-          ) : (
-            <div></div>
           )}
           <button className="quiz-btn next-btn" onClick={nextQuestion}>
             Next

@@ -1,0 +1,27 @@
+@import '../../../styles/Variables.scss';
+@import '../../../styles/Mixins.scss';
+
+.table {
+  @include shadow3;
+  width: 100%;
+
+  .table-header {
+    background-color: $main-bg;
+    font-weight: $aafw;
+    font-size: $aafs;
+    .table-header-row {
+      .header-title {
+        padding: 1rem;
+      }
+    }
+  }
+
+  .table-body {
+    .table-body-row {
+      .body-row-cell {
+        border-bottom: 1px solid $lightGray;
+        padding: 0.8rem;
+      }
+    }
+  }
+}

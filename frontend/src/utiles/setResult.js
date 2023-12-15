@@ -1,6 +1,9 @@
 import axios from 'axios';
 import * as Action from '../redux/reducers/resultReducer';
 
+// ======================================================================
+// Push answers
+// ======================================================================
 export const PushAnswer = (result) => async (dispatch) => {
   try {
     await dispatch(Action.pushResultAction(result));
@@ -8,6 +11,10 @@ export const PushAnswer = (result) => async (dispatch) => {
     console.log(error);
   }
 };
+
+// ======================================================================
+// Update answers
+// ======================================================================
 export const updateResult = (index) => async (dispatch) => {
   try {
     dispatch(Action.updateResultAction(index));
@@ -16,7 +23,10 @@ export const updateResult = (index) => async (dispatch) => {
   }
 };
 
-// /** insert user data */
+
+// ======================================================================
+// User data
+// ======================================================================
 export const usePublishResult = async (resultData) => {
   const { result, username } = resultData;
 

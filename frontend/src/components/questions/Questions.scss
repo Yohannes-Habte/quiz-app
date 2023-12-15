@@ -1,0 +1,30 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.quations-wrapper {
+  .quation-title {
+    @include subTitle;
+  }
+
+  .question-options {
+    .option {
+      @include paragraph;
+
+      &input[type='radio'] {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      .option-label {
+        font-size: $afs;
+      }
+
+
+      .checked {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+      }
+    }
+  }
+}

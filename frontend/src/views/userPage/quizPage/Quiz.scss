@@ -1,0 +1,22 @@
+@import '../../../styles/Variables.scss';
+@import '../../../styles/Mixins.scss';
+
+.quiz-page {
+  .quiz-container {
+    width: $laptop;
+    margin: 1rem auto;
+
+    .quiz-title {
+      @include title;
+    }
+
+    .buttons-wrapper {
+      display: flex;
+      gap: 1rem;
+
+      .quiz-btn {
+        @include button1;
+      }
+    }
+  }
+}

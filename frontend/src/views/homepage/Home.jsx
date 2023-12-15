@@ -3,9 +3,10 @@ import './Home.scss';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserId } from '../../redux/reducers/resultReducer';
+import { MdEmail } from 'react-icons/md';
 
 const Home = () => {
-  const {userId} = useSelector(state => state.result)
+  const { userId } = useSelector((state) => state.result);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -18,14 +19,14 @@ const Home = () => {
   return (
     <main className="home-page">
       <section className="home-container">
-        <h1 className="title">Quiz Application</h1>
+        <h1 className="home-title">Quiz Application</h1>
 
         <ol className="instruction-wrapper">
           <li className="instruction">
             You will be asked 10 questions one after another.
           </li>
           <li className="instruction">
-            10 points is awarded for the correct answer.
+            10 points is awarded for each single correct answer.
           </li>
           <li className="instruction">
             Each question has three options. You can choose only one options.
@@ -38,18 +39,21 @@ const Home = () => {
           </li>
         </ol>
 
-        <form id="form">
-          <input
-            type="text"
-            placeholder="Username*"
-            ref={inputRef}
-            className="input-field"
-          />
-        </form>
+        <form className="form">
+          <div className="input-container">
+            <MdEmail className="email-icon" />
+            <input
+              type="text"
+              placeholder="Enter Email*"
+              ref={inputRef}
+              className="input-field"
+            />
+          </div>
 
-        <Link className="btn" to={'/quiz'} onClick={startQuiz}>
-          Start Quiz
-        </Link>
+          <Link className="start-quiz-btn" to={'/quiz'} onClick={startQuiz}>
+            Start Quiz
+          </Link>
+        </form>
       </section>
     </main>
   );

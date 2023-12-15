@@ -1,0 +1,19 @@
+@import '../../../styles/Variables.scss';
+@import '../../../styles/Mixins.scss';
+
+.quations-wrapper {
+  .quation-title {
+  }
+
+  .question-options {
+    .option {
+    }
+
+    .option-label {
+    }
+
+    .checked {
+      background-color: $red;
+    }
+  }
+}

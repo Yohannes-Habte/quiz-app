@@ -40,9 +40,10 @@ const Result = () => {
   return (
     <main className="result-page">
       <section className="result-page-container">
-        <h1 className="result-title">Quiz Application</h1>
+        <h1 className="result-title">Final Result</h1>
 
-        <div className="result-wrapper">
+      <div className='result-and-table-container'>
+      <div className="result-wrapper">
           <article className="result">
             <h3 className="subTitle">Username</h3>
             <p className="text">{userId || ''}</p>
@@ -73,6 +74,8 @@ const Result = () => {
             <p className="text">{flag ? 'Passed' : 'Failed'}</p>
           </article>
         </div>
+        <ResultTable />
+      </div>
 
         <p className="restart">
           <Link className="btn" to={'/'} onClick={restartHandler}>
@@ -80,8 +83,7 @@ const Result = () => {
           </Link>
         </p>
 
-        {/* result table */}
-        <ResultTable />
+       
       </section>
     </main>
   );

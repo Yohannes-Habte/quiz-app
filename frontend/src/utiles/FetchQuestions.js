@@ -2,15 +2,19 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Action from '../redux/reducers/questionReducer';
 import axios from 'axios';
-/** fetch question hook to fetch api data and set value to store */
+
+const initialValue = {
+  isLoading: false,
+  apiData: [],
+  serverError: null,
+};
+// ======================================================================
+// Fetching questions and answers
+// ======================================================================
 export const useFetchQestion = () => {
   // Global variables
   const dispatch = useDispatch();
-  const [getData, setGetData] = useState({
-    isLoading: false,
-    apiData: [],
-    serverError: null,
-  });
+  const [getData, setGetData] = useState(initialValue);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -44,16 +48,20 @@ export const useFetchQestion = () => {
   return [getData, setGetData];
 };
 
-/** Move to the next question using Dispatch function */
+// ======================================================================
+// Move to the next question using Dispatch function
+// ======================================================================
 export const MoveNextQuestion = () => async (dispatch) => {
   try {
-    dispatch(Action.moveNextAction()); /** increase trace by 1 */
+    dispatch(Action.moveNextAction());
   } catch (error) {
     console.log(error);
   }
 };
 
-/** Move to previous question using Dispatch function */
+// ======================================================================
+// Move to previous question using Dispatch function
+// ======================================================================
 export const MovePrevQuestion = () => async (dispatch) => {
   try {
     dispatch(Action.movePrevAction());

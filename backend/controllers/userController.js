@@ -48,7 +48,7 @@ export const createAccount = async (req, res, next) => {
         secure: true,
       })
       .status(201)
-      .json({ user: newUser, token: userRegisterToken });
+      .json(newUser);
   } catch (error) {
     console.log(error);
     next(createError(500, 'User could not sign up. Please try again!'));

@@ -13,38 +13,36 @@ const ResultTable = () => {
         );
         setData(data.results);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     fetchData();
   }, []);
 
-  console.log("result data", data)
+  console.log('result data', data);
 
   return (
-    <div>
-      <table>
-        <thead className="table-header">
-          <tr className="table-row">
-            <td>Name</td>
-            <td>Attemps</td>
-            <td>Earn Points</td>
-            <td>Result</td>
+    <table className="table">
+      <thead className="table-header">
+        <tr className="table-header-row">
+          <td className="header-title">Name</td>
+          <td className="header-title">Attemps</td>
+          <td className="header-title">Points</td>
+          <td className="header-title">Result</td>
+        </tr>
+      </thead>
+      <tbody className="table-body">
+        {!data ?? <div>No Data Found </div>}
+        {data?.map((user, index) => (
+          <tr className="table-body-row" key={index}>
+            <td className="body-row-cell">{user?.username || ''}</td>
+            <td className="body-row-cell">{user?.attempts || 0}</td>
+            <td className="body-row-cell">{user?.points || 0}</td>
+            <td className="body-row-cell">{user?.achived || ''}</td>
           </tr>
-        </thead>
-        <tbody>
-          {!data ?? <div>No Data Found </div>}
-          {data?.map((user, index) => (
-            <tr className="table-body" key={index}>
-              <td>{user?.username || ''}</td>
-              <td>{user?.attempts || 0}</td>
-              <td>{user?.points || 0}</td>
-              <td>{user?.achived || ''}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
 

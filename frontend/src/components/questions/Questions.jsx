@@ -3,6 +3,7 @@ import './Questions.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateResult } from '../../utiles/setResult';
 import { useFetchQestion } from '../../utiles/FetchQuestions';
+import './Questions.scss';
 
 const Questions = ({ onChecked }) => {
   // Global variables
@@ -13,8 +14,10 @@ const Questions = ({ onChecked }) => {
   );
   const dispatch = useDispatch();
   const [{ isLoading, apiData, serverError }] = useFetchQestion();
+
   // Local state variables
   const [checked, setChecked] = useState(undefined);
+  const [radio, setRadio] = useState(0);
 
   // Update the previous anawer
   useEffect(() => {
@@ -32,9 +35,9 @@ const Questions = ({ onChecked }) => {
     <section className="quations-wrapper">
       <h2 className="quation-title"> {currentQuestion?.question} </h2>
 
-      <ul key={currentQuestion?.id} className="unordered-list">
+      <ul key={currentQuestion?.id} className="question-options">
         {currentQuestion?.options.map((option, index) => (
-          <li key={index}>
+          <li key={index} className="option">
             <input
               type="radio"
               value={false}
@@ -43,11 +46,13 @@ const Questions = ({ onChecked }) => {
               onChange={() => onSelect(index)}
             />
 
-            <label className="text-primary" htmlFor={`q${index}-option`}>
+            <label className="option-label" htmlFor={`q${index}-option`}>
               {option}
             </label>
             <div
-              className={result[questionNumber] == index ? 'checked' : ''}
+              className={`check ${
+                result[questionNumber] == index ? 'checked' : ''
+              }`}
             ></div>
           </li>
         ))}

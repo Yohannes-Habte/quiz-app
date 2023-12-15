@@ -1,0 +1,55 @@
+@import '../../styles/Variables.scss';
+@import '../../styles/Mixins.scss';
+
+.home-page {
+  @include page;
+  .home-container {
+    width: 50%;
+    margin: 1rem auto;
+    background-color: $section-bg;
+    @include shadow1;
+    padding: 2rem 2rem 1rem 4rem;
+
+    .home-title {
+      @include title;
+    }
+
+    .instruction-wrapper {
+      .instruction {
+        @include paragraph;
+        list-style-type: decimal;
+      }
+    }
+
+    .form {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .input-container {
+        width: 70%;
+        position: relative;
+        margin-top: 0.5rem;
+
+        .email-icon {
+          position: absolute;
+          top: 50%;
+          left: 0.5rem;
+          transform: translatey(-60%);
+          font-size: 1.4rem;
+          color: $green;
+        }
+        .input-field {
+          @include inputField;
+          background-color: $field-bg;
+        }
+      }
+
+      .start-quiz-btn {
+        @include button1;
+        padding: 0.9rem;
+      }
+    }
+  }
+}
